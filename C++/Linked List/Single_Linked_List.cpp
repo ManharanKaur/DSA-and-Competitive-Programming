@@ -20,6 +20,9 @@ private:
 public:
     Linked_List();
     // can also initialise as Linked_List() : head(nullptr) {};
+
+    // We can also create linked list using insertion function
+    // Here we are passing arrray to linked list
     Linked_List(int arr[], int count)
     {
         // passing array to linked list
@@ -40,8 +43,10 @@ public:
     void Deletion_At_Beginning();
     void Deletion_At_End();
     void Deletion_At_Specific_position(int pos);
+    void Reverse();
 };
 
+// Constructor
 Linked_List::Linked_List()
 {
     head = nullptr;
@@ -49,6 +54,7 @@ Linked_List::Linked_List()
 }
 
 // Traversal
+// temp pointer used to traverse linked list
 void Linked_List::Display()
 {
     Node *temp = head;
@@ -61,6 +67,7 @@ void Linked_List::Display()
 }
 
 // Searching
+// Traverse till element is found
 bool Linked_List::Searching(int key)
 {
     Node *temp = head;
@@ -76,6 +83,7 @@ bool Linked_List::Searching(int key)
 }
 
 // Finding length
+// Traverse till end and store the count
 int Linked_List::Length()
 {
     // traverse and count
@@ -93,18 +101,18 @@ int Linked_List::Length()
 void Linked_List::Insertion_At_Beginning(int ele)
 {
     Node *newNode = new Node(ele);
-    newNode->next = head;
-    head = newNode;
+    newNode->next = head; // set new node's pointer to head
+    head = newNode;       // set head to new node
 }
 void Linked_List::Insertion_At_End(int ele)
 {
     Node *newNode = new Node(ele);
-    if (head == nullptr)
+    if (head == nullptr) // if list is empty
     {
         head = newNode;
         return;
     }
-    Node *temp = head;
+    Node *temp = head; // insertion
     while (temp->next != nullptr)
         temp = temp->next;
     temp->next = newNode;
@@ -185,6 +193,26 @@ void Linked_List::Deletion_At_Specific_position(int pos)
     delete T1;
 }
 
+// Reversal
+// For reversal, we are changing direction of pointers.
+// i.e instead of pointing to next node, the pointer will point to previous node
+// ALso the head will point to last element and 1st element will point to NULL
+void Linked_List::Reverse()
+{
+    Node *previous = nullptr;
+    Node *temp = head;
+    Node *next = nullptr;
+
+    while (temp != nullptr)
+    {
+        next = temp->next;     // Store next node
+        temp->next = previous; // Reverse current Node's pointer
+        previous = temp;       // Move previous and temp one step forward
+        temp = next;
+    }
+    // After loop, previous will be new head
+    head = previous;
+}
 
 int main()
 {

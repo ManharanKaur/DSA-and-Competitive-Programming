@@ -44,14 +44,34 @@ class LinkedList:
     #Insertion
     def insertion_at_beginning(self,ele):
         newNode = Node(ele)
-        newNode.next = self.head
-        self.head = newNode
-    def insertion_at_end(self,ele):
+        newNode.next = self.head # New node pointing toward first element 
+        self.head = newNode # head pointing to new node
+    def Insertion_At_End(self,ele):
         newNode = Node(ele)
-        if head == None:
-            head = newNode
+        if self.head == None: #Empty list
+            self.head = newNode
             return
-        temp = head
+        temp = self.head
+        while temp.next != None:
+            temp = temp.next #it was null before
+        temp.next = newNode
+    def Insertion_At_Specific_position(self, ele, pos):
+        newNode = Node(ele)
+        if self.head == None: #Empty list
+            self.head = newNode
+            return
+        if pos == 1: # insertion at head
+            newNode.next =self.head
+            self.head = newNode
+            return
+        temp = self.head
+        for i in range(1,pos - 1):
+            if temp == None:
+                del newNode # position out of bound
+                return
+            temp = temp.next
+        newNode.next = temp.next
+        temp.next = newNode.next
         
 
 
@@ -62,8 +82,11 @@ ll.display()  # Output: 2 3 1 1 7 0 1 9
 print("Present" if ll.searching(7) == True else "Not present")
 print("Length:",ll.length())
 ll.insertion_at_beginning(5);
-ll.Display();
+ll.display();
 ll.Insertion_At_End(7);
-ll.Display();
+ll.display();
 ll.Insertion_At_Specific_position(5, 9);
-ll.Display();
+ll.display();
+
+
+
