@@ -1,27 +1,12 @@
 #include <iostream>
 using namespace std;
 
-class Node
-{
-public:
-    int data;
-    Node *next;
-    Node(int val)
-    {
-        data = val;
-        next = nullptr;
-    }
-};
-
-// head is considered as top
-class Stack
-{
-    Node *top; // head
+class Stack{
+    int * stack;
+    int top;
     int maxsize;
-    int currentsize;
-
-public:
-    Stack(int size) : top(nullptr), maxsize(size), currentsize(0) {}
+    public:
+    Stack(int size){stack = new int[size];top = -1; maxsize = size;}
     bool isEmpty();
     bool isFull();
     int push(int x);
@@ -32,7 +17,7 @@ public:
 // function to check if stack is empty or not
 bool Stack::isEmpty()
 {
-    if (top == nullptr)
+    if (top == -1)
         return true;
     else
         return false;
@@ -41,7 +26,7 @@ bool Stack::isEmpty()
 // function to check if stack is full or not
 bool Stack::isFull()
 {
-    if (currentsize == maxsize)
+    if (top == maxsize - 1)
         return true;
     else
         return false;
@@ -55,10 +40,8 @@ int Stack::push(int x)
         cout << "Stack Overflow\n";
         return INT16_MIN;
     }
-    Node *newnode = new Node(x);
-    newnode->next = top; // basically insertion at head
-    top = newnode;
-    currentsize++;
+    top ++;
+    stack[top] = x;
     return x;
 }
 
@@ -70,11 +53,8 @@ int Stack::pop()
         cout << "Stack Undeflow\n";
         return INT16_MIN;
     }
-    Node *temp = top; // basically deletion at head
-    top = top->next;
-    int result = temp->data;
-    delete temp;
-    currentsize--;
+    int result = stack[top];
+    top--;
     return result; // return deleted element
 }
 
@@ -87,11 +67,12 @@ int Stack::peek()
         return INT16_MIN;
     }
     else
-        return top->data; // return valur at top
+        return stack[top]; // return valur at top
 }
 
-int main()
-{
+
+
+int main(){
     Stack s(10);
     cout << "isEmpty(): " << s.isEmpty() << endl;
     cout << "isFull(): " << s.isFull() << endl;
@@ -101,7 +82,7 @@ int main()
     cout << "Pushing elements:\n";
     for (int i = 0; i < 10; i++)
     {
-        cout << s.push(i + 1) << " ";
+        cout << s.push(i+1)<< " ";
     }
     cout << endl;
 
@@ -116,7 +97,7 @@ int main()
         cout << s.pop() << " ";
     }
     cout << endl;
-
+    
     cout << "isEmpty(): " << s.isEmpty() << endl;
     cout << "isFull(): " << s.isFull() << endl;
     cout << "peek(): " << s.peek() << endl;

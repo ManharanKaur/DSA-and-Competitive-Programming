@@ -19,9 +19,9 @@ class LinkedList:
     def display(self):
         temp = self.head
         while temp is not None:
-            print(temp.data, end=" ")  # Print the data of each node
+            print(temp.data, end=" -> ")  # Print the data of each node
             temp = temp.next  # Move to the next node
-        print()  # Newline after the linked list is displayed
+        print("NULL")  # Newline after the linked list is displayed
 
     #Searching
     def searching(self,key):
@@ -71,9 +71,58 @@ class LinkedList:
                 return
             temp = temp.next
         newNode.next = temp.next
-        temp.next = newNode.next
-        
+        temp.next = newNode
 
+
+    # Deletion
+    def deletion_at_beginning(self):
+        if self.head is None: # List is empty
+            return # Nothing to delete
+        temp = self.head 
+        self.head = self.head.next # move head to next node
+        del temp
+    def deletion_at_end(self):
+        if self.head is None:
+            return 
+        if self.head.next is None: # only one element
+            del head
+            return
+        temp = self.head
+        temp1 = temp.next
+        while temp1.next is not None:
+            temp = temp.next # 2nd last element
+            temp1 = temp.next #last element
+        temp.next = None # Disconnect last node
+        del temp1
+    def deletion_at_specific_position(self,pos):
+        if self.head is None:
+            return 
+        if pos == 1: 
+            del head
+            return
+        temp = self.head
+        temp1 = None # keep track of previous node
+        count = 1
+        while (temp is not None and count < pos):
+            temp1 = temp
+            temp = temp.next
+            count += 1
+        if temp is None: # out of bound
+            return
+        temp1.next = temp.next
+        del temp
+
+    # Reversal
+    def reversal(self):
+        previous = None
+        temp = self.head
+        next = None
+        while temp is not None:
+            next = temp.next # Store next node
+            temp.next = previous # Reverse current node's pointer
+            previous = temp # move previous and temp one step forward
+            temp = next
+        self.head = previous
 
 
 arr = [2, 3, 1, 1, 7, 0, 1, 9]
@@ -81,12 +130,17 @@ ll = LinkedList(arr)
 ll.display()  # Output: 2 3 1 1 7 0 1 9
 print("Present" if ll.searching(7) == True else "Not present")
 print("Length:",ll.length())
-ll.insertion_at_beginning(5);
-ll.display();
-ll.Insertion_At_End(7);
-ll.display();
-ll.Insertion_At_Specific_position(5, 9);
-ll.display();
-
-
-
+ll.insertion_at_beginning(5)
+ll.display()
+ll.Insertion_At_End(7)
+ll.display()
+ll.Insertion_At_Specific_position(9, 5)
+ll.display()
+ll.deletion_at_beginning()
+ll.display()
+ll.deletion_at_end()
+ll.display()
+ll.deletion_at_specific_position(4)
+ll.display()
+ll.reversal()
+ll.display()
