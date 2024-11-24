@@ -58,7 +58,7 @@ public:
     void Dequeue()
     {
         if (isEmpty()){
-            cout << "Stack is empty \n";
+            cout << "Queue is empty \n";
             return; // no elements
             }
         Node *temp = front;
