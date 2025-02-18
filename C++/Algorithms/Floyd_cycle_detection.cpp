@@ -1,3 +1,11 @@
+// Floyd cycle detection
+// How it work
+// 1. We use two pointers, one is slow and one is fast
+// 2. If there is a cycle, the fast pointer will eventually catch up to the slow
+// 3. If there is no cycle, the fast pointer will reach the end of the list
+// 4. Once they catch up, we reset the slow pointer to the start and move both pointers one step at a time
+// 5. Now, they will meet ar starting point of cycle
+
 #include <iostream>
 using namespace std;
 
