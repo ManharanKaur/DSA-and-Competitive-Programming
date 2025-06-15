@@ -64,6 +64,42 @@ void Level_Order(Node *root){
     }
 }
 
+// Zig zag traversal(spiral traversal)
+void ZigZag(Node *root){
+    vector <int> res;
+    if(root == nullptr) return;
+    queue <Node *> q;
+    q.push(root);
+    bool left_to_right = true;
+    while (!q.empty())
+    {
+        int size = q.size();
+        vector <int> level(size);
+        // process a level
+        for (int i = 0; i < size; i++)
+        {
+            Node *frontnode = q.front();
+            q.pop();
+
+            int index = left_to_right ? i : size - i - 1;
+            level[index] = frontnode->data;
+
+            if(frontnode->left)
+                q.push(frontnode->left);
+            if(frontnode->right)
+                q.push(frontnode->right);
+        }   
+        // change direction
+        left_to_right = !left_to_right;
+
+        for(auto i : level) 
+            res.push_back(i);
+    }
+    for (int i = 0; i < res.size(); i++)
+        cout << res[i] << " ";
+    
+}
+
 int height(Node* root){
     if(root == nullptr)
         return 0;
@@ -105,7 +141,7 @@ int main(){
         / \
       2     3
      / \   / \
-    4   5 6   7       */
+    4   5 6   7      */
 
     cout << "Inorder Traversal: \n";
     Inorder(root);
@@ -121,6 +157,10 @@ int main(){
 
     cout << "Level Order Traversal: \n";
     Level_Order(root);
+    cout << "\n";
+
+    cout << "Zig zag Traversal: \n";
+    ZigZag(root);
     cout << "\n";
 
     cout << "Height of tree: " << height(root);
