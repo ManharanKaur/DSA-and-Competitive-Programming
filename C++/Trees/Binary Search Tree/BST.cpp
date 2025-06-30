@@ -46,8 +46,10 @@ void LevelOrder(Node* root){
 
 // Function to insert a new key into the BST
 void insert(Node* root, int key){
-    if(root == nullptr)
+    if(root == nullptr){
         root = new Node(key);
+        return;
+    }
 
     while(1){
         if(key < root->data){
@@ -77,8 +79,8 @@ void search(Node* root, int key){
     if(root->data == key){
         cout << key << " FOUND in the tree\n";
     }
-    if(root->data < key) search(root->left, key);
-    if(root->data > key) search(root->right, key);
+    if(root->data < key) search(root->right, key);
+    if(root->data > key) search(root->left, key);
 }
 
 
@@ -89,42 +91,50 @@ Node * getsuccessor(Node* temp){
     return temp;
 }
 
-void delete_(Node* root, int key){
-    if (root == nullptr) return; // base case
-    
-    if(root->data > key) delete_(root->left, key);
-    else if(root->data < key) delete_(root->right, key);
+Node *deleteNode(Node *root, int key){
+    if (root == nullptr)
+        return root; // Base case: the tree is empty
+
+    // Recursively traverse the tree to find the node to delete
+    if (key < root->data)
+        root->left = deleteNode(root->left, key);
+    else if (key > root->data)
+        root->right = deleteNode(root->right, key);
     else{
-        // if root has no children
-        if (root->left == nullptr && root->right == nullptr) {
+        // Node found
+
+        // Case 1: Node has no children (leaf node)
+        if (root->left == nullptr && root->right == nullptr){
             delete root;
-            return;
+            return nullptr;
         }
-        // if root has one child
-        else if (root->left == nullptr)
-        {
-            Node* temp = root->right;
+
+        // Case 2: Node has one child
+        else if (root->left == nullptr){
+            Node *temp = root->right;
             delete root;
-            return;
+            return temp;
         }
         else if (root->right == nullptr){
-            Node* temp = root->left;
+            Node *temp = root->left;
             delete root;
-            return;
+            return temp;
         }
-        // if root has two children
-        else{
-            // find inorder successor
-            Node * temp = getsuccessor(root);
 
-            // copy the inorder successor's data to the root
+        // Case 3: Node has two children
+        else{
+            // Find the inorder successor (smallest node in the right subtree)
+            Node *temp = getsuccessor(root->right);
+
+            // Replace root's value with the inorder successor's value
             root->data = temp->data;
 
-            // delete the inorder successor
-            delete_(root->right, temp->data);
+            // Delete the inorder successor
+            root->right = deleteNode(root->right, temp->data);
         }
     }
 
+    return root;
 }
 
 
@@ -143,8 +153,8 @@ int main(){
     search(root,40);
     search(root,45);
 
-    delete_(root, 70);
-    Inorder(root);
+    Node * new_root = deleteNode(root, 70);
+    Inorder(new_root);
     cout << endl;
 
 }

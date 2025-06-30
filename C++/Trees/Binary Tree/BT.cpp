@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <map>
 using namespace std;
 
 class Node{
@@ -127,6 +128,42 @@ int diameter(Node* root){
     return dia;
 }
 
+void TopView(Node *root){
+    if(!root) return;
+    // create a map to store the nodes at each virtical level
+    map<int, int> topNodes;
+    // Queue for BFS traversal
+    queue<pair< Node*, int > > q;
+
+    q.push({root, 0});
+
+    //BFS
+    while(!q.empty()){
+        Node* node = q.front().first;
+        int line = q.front().second;
+        q.pop();
+
+        // If the vertical position is not already in the map, add the node's data to the map
+        if (topNodes.find(line) == topNodes.end()) {
+            topNodes[line] = node->data; 
+        }
+
+        // Left Node
+        if(node->left != NULL){
+            // Push the left child with a decreased vertical position into the queue
+            q.push({node->left, line - 1});
+        }
+
+        // Right Node
+        if(node->right != NULL){
+            // Push the right child with an increased vertical position into the queue
+            q.push({node->right, line + 1});
+        }
+    }
+    for(auto it : topNodes)
+            cout << it.second << " ";
+}
+
 int main(){
     Node* root = new Node(1);
     root->left = new Node(2);
@@ -167,5 +204,9 @@ int main(){
     cout << "\n";
 
     cout << "Diameter of tree: " << diameter(root);
+    cout << "\n";
+
+    cout << "Top View of tree: ";
+    TopView(root);
     cout << "\n";
 }
