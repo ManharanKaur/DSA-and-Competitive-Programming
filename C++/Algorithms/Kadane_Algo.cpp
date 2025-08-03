@@ -19,6 +19,9 @@ int maxSubarraySum(vector <int> &arr){
     int currentsum = arr[0];
     for (int i = 1; i < arr.size(); i++){
         currentsum = max(arr[i], currentsum+arr[i]); // max of current element and sum of current element and current sum;
+        // This is because. if current element is negative, then adding it to current sum will decrease the sum
+        // and if it is larger than (currentsum + arr[i]), then our subarray should start from this element
+        // this case is possible if our cuttent sum is -ve then adding a +ve num will decrease our sum
         result = max(result, currentsum); // update maximum so far
     }
     return result;
