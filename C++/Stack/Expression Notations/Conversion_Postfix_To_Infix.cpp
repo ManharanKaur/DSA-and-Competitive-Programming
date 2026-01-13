@@ -37,10 +37,10 @@ string Postfix_To_Infix(const string &postfix)
 
 int main()
 {
-    string prefixExpr = "*-A/BC-/AKL"; // Infix: ((A - (B / C)) * ((A / K) - L))
+    string postfixExpr = "ABC/-AK/L-*"; // Infix: ((A - (B / C)) * ((A / K) - L))
 
-    cout << "Prefix Expression : " << prefixExpr << endl;
-    cout << "Infix Expression : " << Postfix_To_Infix(prefixExpr) << endl;
+    cout << "Postfix Expression : " << postfixExpr << endl;
+    cout << "Infix Expression : " << Postfix_To_Infix(postfixExpr) << endl;
 
     return 0;
 }
