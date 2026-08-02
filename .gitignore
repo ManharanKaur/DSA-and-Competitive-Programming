@@ -1,2 +1,81 @@
-C++/.DS_Store
-.vscode
+# Dependencies
+node_modules/
+vendor/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build files
+dist/
+build/
+out/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Coverage reports
+coverage/
+.coverage
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Database files
+*.sqlite
+*.db
+
+# Secrets / keys
+*.pem
+*.key
+
+# Large ML files
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+checkpoints/
+models/
+
+# Uploads
+uploads/
+
+# Misc
+.Dockerfile
+docker-compose.override.yml
